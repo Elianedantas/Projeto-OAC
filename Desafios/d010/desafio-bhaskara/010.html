@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bhaskara</title>
+    <style>
+        header {
+            font: normal 18pt Arial;
+        }
+        input {
+            height: 60px;
+            width: 130px;
+            font: normal 12pt Arial;
+        }
+        p {
+            font: normal 12pt Arial;
+        }
+        div#res {
+            margin-top: 30px;
+            font: normal 25pt Arial;
+        }
+        div#res2 {
+            margin-top: 30px;
+            font: normal 16pt Arial;
+        }
+        b#delta {
+            background-color: yellow;
+            font: normal 14pt Arial;
+            width: max-content;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Resolvendo Bhaskara</h1>
+    </header>
+    <div>
+        <input type="button" value="Calcular" onclick="calcular()">
+    </div>
+    <div id="res">
+        <p><strong>Considerando uma equação no formato <em>ax² + bx + c = 0</em>, aperte o botão acima para calcular o valor de Δ.</strong></p>
+    </div>
+    <div id="res2">
+
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
