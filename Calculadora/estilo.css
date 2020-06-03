@@ -8,6 +8,7 @@ body {
     background-color: white;
     width: 300px;
     height: 20px;
+    color: black;
 }
 input {
     background: rgb(77, 159, 192);

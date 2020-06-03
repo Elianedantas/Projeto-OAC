@@ -10,25 +10,25 @@
     <h1>Calculadora</h1>
     <div>
         <input type="text" name="visor" id="visor">
-        <p><input type="button" value="9" id="num" onclick="calcnum(9)">
-        <input type="button" value="8" id="num" onclick="calcnum(8)">
-        <input type="button" value="7" id="num" onclick="calcnum(7)">
-        <input type="button" value="+" id="oper" onclick="calcParse('somar')">
-        <input type="button" value="%" id="oper"></p>
-        <p><input type="button" value="6" id="num" onclick="calcnum(6)">
-        <input type="button" value="5" id="num" onclick="calcnum(5)">
-        <input type="button" value="4" id="num" onclick="calcnum(4)">
-        <input type="button" value="&#8722" id="oper" onclick="calcParse('subtrair')">
-        <input type="button" value="x&#8319" id="oper"></p>
-        <p><input type="button" value="3" id="num" onclick="calcnum(3)">
-        <input type="button" value="2" id="num" onclick="calcnum(2)">
-        <input type="button" value="1"id="num" onclick="calcnum(1)">
-        <input type="button" value="&#215" id="oper" onclick="calcParse('multiplicar')">
-        <input type="button" value="&radic;" id="oper"></p>
-        <p><input type="button" value="0" id="num" onclick="calcnum(0)">
-        <input type="button" value="&divide;" id="oper" onclick="calcParse('dividir')">
-        <input type="button" value="AC" id="num" onclick="calcLimpar()">
-        <input type="button" value="=" id="num" onclick="calcParse('resultado')"></p>
+        <p><input type="button" value="9" onclick="preencher(9)">
+        <input type="button" value="8" onclick="preencher(8)">
+        <input type="button" value="7" onclick="preencher(7)">
+        <input type="button" value="+" onclick="preencher('+')">
+        <input type="button" value="%"></p>
+        <p><input type="button" value="6" onclick="preencher(6)">
+        <input type="button" value="5" onclick="preencher(5)">
+        <input type="button" value="4" onclick="preencher(4)">
+        <input type="button" value="&#8722" onclick="preencher('-')">
+        <input type="button" value="x&#8319" onclick="preencher('**')"></p>
+        <p><input type="button" value="3" onclick="preencher(3)">
+        <input type="button" value="2" onclick="preencher(2)">
+        <input type="button" value="1" onclick="preencher(1)">
+        <input type="button" value="&#215" onclick="preencher('*')">
+        <input type="button" value="&divide;" onclick="preencher('/')"></p>
+        <p><input type="button" value="0" onclick="preencher(0)">
+        <input type="button" value="&radic;" onclick="raiz('&radic;')">
+        <input type="button" value="C" onclick="limpar()">
+        <input type="button" value="=" onclick="calcular()"></p>
     </div>
     <script src="script.js"></script>
 </body>
