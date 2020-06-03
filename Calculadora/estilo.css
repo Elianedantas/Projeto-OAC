@@ -2,7 +2,7 @@ body {
     background-color: rgb(218, 152, 174);
     text-align: center;
     font: normal 25pt Arial;
-    color: white;
+    color: bisque
 }
 #visor {
     background-color: white;
@@ -18,9 +18,4 @@ input {
     margin: auto;
     box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.651);
     font: normal 20pt Arial;
-}
-select {
-    width: 300px;
-    height: 45px;
-    border-radius: 8px;
 }
