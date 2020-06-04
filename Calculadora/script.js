@@ -8,12 +8,16 @@ function preencher(num) {
 function limpar() {
     document.getElementById('visor').value = ''
     numero = ''
+    resultado = undefined
+    termo = [undefined, undefined, undefined]
 }
 function operador(op) {
-    termo[0] = numero
-    termo[1] = op
-    document.getElementById('visor').value += op
-    numero = ''
+    if (termo[1] == undefined) {
+        termo[0] = numero
+        termo[1] = op
+        document.getElementById('visor').value += op
+        numero = '' 
+    }
 }
 function calcular() {
     termo[2] = numero
@@ -24,22 +28,23 @@ function calcular() {
         case '-':
             resultado = Number(termo[0]) - Number(termo[2])
             break
-        case '*':
+        case '×':
             resultado = Number(termo[0]) * Number(termo[2])
             break
-        case '/':
+        case '÷':
             resultado = Number(termo[0]) / Number(termo[2])
             break
-        case '**':
+        case '^':
             resultado = Number(termo[0]) ** Number(termo[2])
             break
         case '%':
             resultado = Number(termo[0]) / 100
             break
-        case 'raiz':
-            alert(resultado)
-            resultado = Number(termo[0]) ** 0.5
+        case '√':
+            resultado = Number(termo[2]) ** 0.5
             break
     }
+    numero = resultado
     document.getElementById('visor').value = resultado
+    termo = [undefined, undefined, undefined]
 }
