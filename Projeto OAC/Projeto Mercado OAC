@@ -1,0 +1,277 @@
+.data
+  mercado1: .asciiz "D:/Projeto OAC/a.txt"
+  conteudo: .space 1024 # tamanho dos caracteres que irá ser lido
+  	    
+  perguntaNome: .ascii "\n\n                                      WELLCOME TO MINI MARKET\n"
+  		       "                                  DIGITE SEU NOME PARA INICIAR AS COMPRAS:\n"
+  		.asciiz "                                  >> "
+  nome: .space 30
+  saudacao: .asciiz "\n\n                                           Ol�, "
+
+  carrinho: .ascii "\n             _                                                                   DESCONTOS DISPONIVEIS:\n"
+  		   "              \\________                                                          A partir de R$150 5%\n"
+    		   "            ~  \\######/                  DIGITE 1 PARA CONTINUAR                 A partir de R$200 10%\n"
+    		   "             ~  |####/                              OU                           A partir de R$250 15%\n"
+		   "            ~   |____.                   DIGITE 0 PARA FINALIZAR                 A partir de R$300 20%\n"
+    	    	   "            ____o____o_______\n"
+    	    .asciiz "                                         >> "
+    	    
+  cestas: 
+     .ascii "\n\n         *--------------------------------------------------------------------------------------------*\n"
+                "         |                                   ESCOLHA O NUMERO DA OPCAO:  	  		      |\n"
+                "         |--------------------------------------------------------------------------------------------|\n"
+  		"         |             FRUTAS              |           FRIOS           |           VERDURAS           |\n"
+  		"         |---------------------------------|---------------------------|------------------------------|\n"
+  		"         |  3-Abacate ------- R$2,90       |  9-Presunto -- R$31,19KG  |    15-Espinafre --- R$2,00   |\n"
+  		"         |  4-Abacaxi ------- R$5,00       | 10-Mussarela - R$42,89KG  |    16-Couve ------- R$4,00   |\n"
+  		"         |  5-CX de Morango-- R$5,00       | 11-Iogurte ------ R$2,50  |    17-Endivia ---- R$25,00   |\n"
+  		"         |  6-Amora --------- R$5,00       | 12-Manteiga ----- R$2,50  |    18-Beterraba --- R$2,50   |\n"
+  		"         |  7-Caju ---------- R$3,00       | 13-Requeijao ---- R$5,00  |    19-Alcachofra - R$10,00   |\n"
+                "         |  8-Laranja ------- R$1,90       | 14-Calabresa -- R$5,17UN  |    20-Brocolis ---- R$4,00   |\n"
+                "         |--------------------------------------------------------------------------------------------|\n"
+      	        "         |                0-DESISTIR/SAIR     1-CANCELAR COMPRA     2-FINALIZAR COMPRA                |\n"
+      	        "         *--------------------------------------------------------------------------------------------*\n"
+        .asciiz "                                                TOTAL: R$ "
+  
+  invalido: .asciiz "\n                        Opcao invalida, digite um numero novamente.         "
+  pula: .asciiz "\n\n "
+  tot: .ascii "\n\n ----------------------------------------------------------------------------------------------------------------"
+       .asciiz "\n\n           Valor total da compra foi: R$ "
+ 
+ # As operacoes float n�o aceita a soma diretamente neles Ex: add.d $f12, $f12, 1.90. Por isso precisamos setalos dentro de uma tag
+  zero: .float 0.0  
+  r1.9: .float 1.9 
+  r2: .float 2.0
+  r2.5: .float 2.5
+  r2.9: .float 2.9
+  r3: .float 3.0
+  r4: .float 4.0
+  r5: .float 5.0
+  r5.17: .float 5.17
+  r10: .float 10.0
+  r25: .float 25.0
+  r31.19: .float 31.19
+  r42.89: .float 42.89  
+  
+  continuar: .asciiz  "\n\n\n          Deseja Continuar  no Programa?  1 - Sim   0 - Nao \n"
+  
+  #produtos:
+  #	.align 3
+  #	.space 
+  #total:
+  
+  #descontos: 
+  #	.align 
+  
+  local: .asciiz "D:/Ufs 4º Periodo/a.txt"
+  
+.text
+  jal impressaoLogoMercado	
+   
+   #Inicio da funcao
+  impressaoLogoMercado:
+  	lwc1 $f1, zero
+	add.s $f12, $f1, $f0        # Colocar o comando para zerar o registrador onde esta contido o valor total da compra
+  	#impressao da logo Mercado
+
+  	#Abrir o arquivo em modo leitura
+	li $v0, 13  #solicita a abertura do arquivo
+	la $a0, mercado1 #endereço do arquivo em $a0
+	li $a1, 0 #0: leitura: l: escrita
+	syscall #descritor do arquivo vai para $v0
+	
+	move $s0, $v0 #copia do descritor
+	
+	move $a0, $s0
+	li $v0, 14  #ler conteudo do arquivo referenciado por $a0
+	la $a1, conteudo  #buffer que armazena o conteudo
+	li $a2, 1024  #tamanho do buffer
+	syscall  #leitura realizada
+	
+	#imprimir o conteudo do arquivo
+	li $v0, 4
+	move $a0, $a1
+	syscall
+	
+	#fechar o arquivo
+	li $v0, 16
+	move $a0, $s0
+	syscall
+  
+ 	#pergunta o nome
+  	li $v0, 4
+  	la $a0, perguntaNome
+  	syscall 
+  
+  	#leitura do nome
+ 	li $v0, 8
+  	la $a0, nome
+ 	la $a1, 30
+  	syscall
+  
+  	#mostra uma saudacao
+ 	li $v0, 4
+  	la $a0, saudacao
+  	syscall
+  
+  	#imprime o nome
+  	li $v0, 4
+  	la $a0, nome
+  	syscall
+
+  sair_ou_nao:  #Opcao para sair ou continuar no programa
+  	#imprime carrinho, descontos e opcoes 0 ou 1
+  	li $v0, 4
+  	la $a0, carrinho
+  	syscall
+  
+  	#leitura de inteiro (1 ou 0)
+  	li $v0, 5
+  	syscall
+  
+  	move $t0, $v0 #valor fornecido agora esta em t0
+  	 		 	
+  	beq $t0, $zero, encerra_programa  #Comparou com zero se for igual sai se n continua
+  	beq $t0, 1, cesta    #Compara se e igual a 1 se for ele sai da funcao
+  	li $v0, 4            #Se digitar um umero diferente de 1 ou 0 imprime mensagem de erro na tela
+  	la $a0, invalido    #Mensagem de erro na tela
+  	syscall
+  	j sair_ou_nao
+  	
+  cesta: # Mensagem do que possui na cesta 
+  	li $v0, 4  
+  	la $a0, cestas   #Imprime os itens principais da cesta
+  	syscall
+  	
+  	li $v0, 2  #Imprime o valor total da compra
+  	syscall 
+  	
+  	li $v0, 4  
+  	la $a0, pula   #Imprime os itens principais da cesta
+  	syscall
+  	
+  	li $v0, 5 #ler opcao do usuario
+  	syscall
+  	
+  	blt $v0, $zero, invl
+  	beq $v0, $zero, encerra_programa
+  	beq $v0, 1, comeca_novamente
+  	beq $v0, 2, finalizada
+  	beq $v0, 3, r_2.9   # Chama a funcao e soma com 2,90
+  	beq $v0, 4, r_5     # Chama a funcao e soma com 5,00
+  	beq $v0, 5, r_5     # Chama a funcao e soma com 5,00
+  	beq $v0, 6, r_5     # Chama a funcao e soma com 5,00
+  	beq $v0, 7, r_3     # Chama a funcao e soma com 3,00
+  	beq $v0, 8, r_1.9    # Chama a funcao e soma com 1,90
+        beq $v0, 9, r_31.19  # Chama a funcao e soma com 31,90
+  	beq $v0, 10, r_42.89 # Chama a funcao e soma com 42,89
+  	beq $v0, 11, r_2.5  # Chama a funcao e soma com 2,50
+  	beq $v0, 12, r_2.5  # Chama a funcao e soma com 2,50
+  	beq $v0, 13, r_5     # Chama a funcao e soma com 5,00
+  	beq $v0, 14, r_5.17  # Chama a funcao e soma com 5,17
+  	beq $v0, 15, r_2     # Chama a funcao e soma com 2,00
+  	beq $v0, 16, r_4      # Chama a funcao e soma com 4,00
+  	beq $v0, 17, r_25     # Chama a funcao e soma com 25,00
+  	beq $v0, 18, r_2.5    # Chama a funcao e soma com 2,50
+  	beq $v0, 19, r_10     # Chama a funcao e soma com 10,00
+  	beq $v0, 20, r_4     # Chama a funcao e soma com 4,00
+  	bgt $v0, 21, invl    # Se digitar valores acima de 20 d� invalido cahama a funcao invl e o usuario precisa digitar outro numero
+  
+  invl:
+  j cesta
+  
+  r_1.9:
+  lwc1 $f1, r1.9  #Ele carrega para o registrador o valor 1,90
+  add.s $f12, $f1, $f12  #Pega o valor que esta registrado no f12 e soma com o f1 e armazena no registrador f12 
+  j cesta
+  
+  r_2:
+  lwc1 $f1, r2
+  add.s $f12, $f1, $f12
+  j cesta
+  
+  r_2.5:
+  lwc1 $f1, r2.5
+  add.s $f12, $f1, $f12
+  j cesta
+  		
+  r_2.9:
+  lwc1 $f1, r2.9
+  add.s $f12, $f1, $f12
+  j cesta
+  
+  r_3:
+  lwc1 $f1, r3
+  add.s $f12, $f1, $f12
+  j cesta
+  
+  r_4:
+  lwc1 $f1, r4
+  add.s $f12, $f1, $f12
+  j cesta
+  
+  r_5:
+  lwc1 $f1, r5
+  add.s $f12, $f1, $f12
+  j cesta
+  
+  r_5.17:
+  lwc1 $f1, r5.17
+  add.s $f12, $f1, $f12
+  j cesta
+  
+  r_10:
+  lwc1 $f1, r10
+  add.s $f12, $f1, $f12
+  j cesta
+  
+  r_25:
+  lwc1 $f1, r25
+  add.s $f12, $f1, $f12
+  j cesta
+  
+  r_31.19:
+  lwc1 $f1, r31.19
+  add.s $f12, $f1, $f12
+  j cesta
+  
+  r_42.89:
+  lwc1 $f1, r42.89
+  add.s $f12, $f1, $f12
+  j cesta
+  
+  finalizada:
+        #Vai imprimir uma mensagem de o valor total �
+  	li $v0, 4 
+  	la $a0, tot
+  	syscall
+  
+  	#Vai imprimir o valor total 
+  	li $v0, 2
+  	syscall 
+  	
+  	#### colocar o codigo para adicionar o valor total da compra do usuario
+  	
+  	
+  	##########################################################
+  	
+  	#Vai imprimir a mensagem perguntando se quer continuar ou sair
+  	li $v0, 4
+  	la $a0, continuar
+  	syscall
+  	 
+  	#ler opcao do usuario
+  	li $v0, 5 
+  	syscall
+  	
+  	beq $v0, 0, encerra_programa #Compara se for 0 encerra o programa
+  	beq $v0, 1, comeca_novamente #Compara se for 1 continua no programa
+  	
+  	
+  comeca_novamente: #Vai cair nessa opcao se o usuario quiser cancelar ou finalizar a compra e continuar a usar o programa
+  	jr $ra  
+  	
+  encerra_programa:
+  li $v0, 10  #carrega o codigo da syscall no reg. $v0
+  syscall
+  
