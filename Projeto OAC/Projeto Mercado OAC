@@ -8,11 +8,11 @@
   nome: .space 30
   saudacao: .asciiz "\n\n                                           Olá, "
 
-  carrinho: .ascii "\n             _                                                                   DESCONTOS DISPONIVEIS:\n"
-  		   "              \\________                                                          A partir de R$150 5%\n"
-    		   "            ~  \\######/                  DIGITE 1 PARA CONTINUAR                 A partir de R$200 10%\n"
-    		   "             ~  |####/                              OU                           A partir de R$250 15%\n"
-		   "            ~   |____.                   DIGITE 0 PARA FINALIZAR                 A partir de R$300 20%\n"
+  carrinho: .ascii "\n             _                                                                   			\n"
+  		   "              \\________                                                          			\n"
+    		   "            ~  \\######/                  DIGITE 1 PARA CONTINUAR                 			\n"
+    		   "             ~  |####/                              OU                           			\n"
+		   "            ~   |____.                   DIGITE 0 PARA FINALIZAR                 			\n"
     	    	   "            ____o____o_______\n"
     	    .asciiz "                                         >> "
     	    
